@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="colorlib.com">
+    <link href= "{{url_for('static', path='css/styles.css')}}"  rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+    <link href="static/css/styles.css" rel="stylesheet" />
+    <style>
+     
+      .content{
+          margin: -6rem 2rem;
+      }
+      .content h2,h3{
+        color: rgb(239, 243, 248);
+        text-align: center;
+      }
+      .table-responsive{
+        margin-top: 3rem;
+        margin: 3rem 7rem;
+        border: 2px solid black;
+        padding:4rem;
+        border-radius: 10px;
+      }
+      legend{
+        font-family: Georgia, 'Times New Roman', Times, serif;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+    <div class="s01">
+      <form method="POST">
+        <fieldset>
+          <legend >Vector Space Model</legend>
+        </fieldset>
+        <div class="inner-form">
+          <div class="input-field first-wrap">
+            <input id="query" type="text" name="query" placeholder="Enter Query " />
+          </div>
+          <div class="input-field second-wrap">
+            <input id="alpha" type="text"  name="alpha" placeholder="Alpha Value" />
+          </div>
+          <div class="input-field third-wrap">
+            <!-- <input class="btn-search" type="submit" name="action" value="Search">
+            <hr>
+            <input class="btn-search" type="submit" name="action" value=" Visual">   -->
+            <!-- <button class="btn-search" type="submit">Search</button>-->
+            <button class="btn-search" type="submit">Search</button> --> 
+          </div>
+        </div>
+      </form>
+    </div>
+
+      <div class="content">
+        {% if results  %}
+        <div class="container">
+          <h2 class="mb-5"> Showing results for <i> {{data}}</i></h2>
+          <h3 class="mb-5">Total retrieved documents:  {{total_doc}}</h3>
+          
+          <div class="table-responsive">
+    
+            <table class="table table-striped custom-table">
+              <thead>
+                <tr>
+                  
+                  <th scope="col">Rank</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Content </th>
+                  <th scope="col">Similarity</th>
+                  <!-- <th scope="col">Education</th> -->
+                  <th scope="col"></th>   <!--Read More column-->
+                </tr>
+              </thead>
+              <tbody>
+                {% for index, (title,sim) in enumerate(results.items()) %}
+                <tr>
+                  <td>{{index+1}}</td>
+                  <td><a href="#">Document No. {{title}} </a></td>
+                  <td>
+                    {{content[index][0:50]}} ...
+                    <!-- <small class="d-block">Subtitle Text</small> -->
+                  </td>
+                  <td>{{sim}}</td>
+                  <td><a href="#" class="more">Read More</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+    
+        </div>
+        {% endif %}
+        </div>
+          <footer>
+            <p> Created by Sara Sameer © 25th April 2022</p>
+          </footer>
+  </body>
+</html>
